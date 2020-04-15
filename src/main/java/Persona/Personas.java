@@ -9,9 +9,9 @@ public class Personas
     private String genero;
     private int edad;
     private double cDelBoleto;
-    private int nPasaporte; 
+    private String nPasaporte; 
     private String nTiquete;
-    private int nAsiento;
+    private String nAsiento;
     private int nVuelo;
     private String ciudadanoOro;
 
@@ -48,7 +48,7 @@ public class Personas
         return cDelBoleto;
     }
 
-    public int getnPasaporte() {
+    public String getnPasaporte() {
         return nPasaporte;
     }
 
@@ -56,7 +56,7 @@ public class Personas
         return nTiquete;
     }
 
-    public int getnAsiento() {
+    public String getnAsiento() {
         return nAsiento;
     }
 
@@ -98,7 +98,7 @@ public class Personas
         this.cDelBoleto = cDelBoleto;
     }
 
-    public void setnPasaporte(int nPasaporte) {
+    public void setnPasaporte(String nPasaporte) {
         this.nPasaporte = nPasaporte;
     }
 
@@ -106,7 +106,7 @@ public class Personas
         this.nTiquete = nTiquete;
     }
 
-    public void setnAsiento(int nAsiento) {
+    public void setnAsiento(String nAsiento) {
         this.nAsiento = nAsiento;
     }
 

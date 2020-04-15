@@ -27,7 +27,7 @@ public class Metodos
     public double checkDescuento(int edad, double costoBoleto)
     {
         double descuento = 0;
-        
+
         if(edad < 14)
         {
             descuento = (costoBoleto - (costoBoleto * 0.10));
@@ -37,16 +37,16 @@ public class Metodos
             if(edad > 65)
             {
                 descuento = (costoBoleto - (costoBoleto * 0.35));
-                
+               
             }//Fin if
-            
+
         }//Fin if
         return descuento;
         
     }//Fin checkDescuento
     
     
-    public void comprobarEspacios(String apellido1, String apellido2, String nombre, String pasaporte, int destino, int edad, int genero, int regPension)
+    public void checkEspacios(String apellido1, String apellido2, String nombre, String pasaporte, int destino, int edad, int genero, int regPension)
     {
         if((nombre == "") || (apellido1 == "") || (apellido2 == "") || (pasaporte == ""))
         {
@@ -59,5 +59,18 @@ public class Metodos
             JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opciones.");
         }//Fin if
         
-    }//Finn comprobarEspacios
+    }//Fin checkEspacios
+
+    public void checkCiudadanoOro(int edad, String ciudadanoOro)
+    {
+        if(edad > 65)
+        {
+            ciudadanoOro = "Si";            
+        }
+        else
+        {
+            ciudadanoOro = "No";
+        }
+    }//Fin checkCiudadanoOro
+    
 }//Fin Metodos

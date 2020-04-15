@@ -1,12 +1,18 @@
 package GUI;
 
+import Persona.Personas;
+import Metodo.Metodos;
+import javax.swing.JOptionPane;
+
 public class UI extends javax.swing.JFrame {
+    Personas persona = new Personas();
 
     /**
      * Creates new form UI
      */
     public UI() {
         initComponents();
+        
     }
 
     /**
@@ -129,7 +135,7 @@ public class UI extends javax.swing.JFrame {
         chkCiudadanoOro.setText("Ciudadano Oro");
         chkCiudadanoOro.setEnabled(false);
 
-        cmbPension.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reg. Pensión", "Mag. Nacional", "CCSS" }));
+        cmbPension.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Reg. Pensión", "Mag. Nacional", "CCSS", "No Aplica" }));
         cmbPension.setEnabled(false);
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -211,6 +217,11 @@ public class UI extends javax.swing.JFrame {
         });
 
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarMouseClicked(evt);
+            }
+        });
 
         btnEditar.setText("Editar");
 
@@ -261,6 +272,10 @@ public class UI extends javax.swing.JFrame {
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
         System.exit(0);
     }//GEN-LAST:event_btnSalirMouseClicked
+    
+    private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
+        establecerValores();
+    }//GEN-LAST:event_btnRegistrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -295,6 +310,21 @@ public class UI extends javax.swing.JFrame {
                 new UI().setVisible(true);
             }
         });
+    }
+    
+    public void establecerValores()
+    {
+        persona.setNombre(txtNombre.getText());
+        persona.setApellido1(txtApellido1.getText());
+        persona.setApellido2(txtApellido2.getText());
+        persona.setnPasaporte(txtPasaporte.getText());
+        persona.setEdad((int) spnEdad.getValue());      
+        persona.setGenero((String) cmbGenero.getSelectedItem());
+        persona.setDestino((String) cmbDestino.getSelectedItem());
+        persona.setnAsiento((String) cmbAsiento.getSelectedItem());
+        
+       
+        JOptionPane.showMessageDialog(rootPane, persona.getGenero());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
