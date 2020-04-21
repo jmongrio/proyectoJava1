@@ -28,7 +28,7 @@ public class Metodos
     {
         double descuento = 0;
 
-        if(edad < 14)
+        if(edad <= 14)
         {
             descuento = (costoBoleto - (costoBoleto * 0.10));
         }
@@ -63,7 +63,7 @@ public class Metodos
 
     public void checkCiudadanoOro(int edad, String ciudadanoOro)
     {
-        if(edad > 65)
+        if(edad >= 65)
         {
             ciudadanoOro = "Si";            
         }

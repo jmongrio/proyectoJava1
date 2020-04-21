@@ -3,15 +3,31 @@ package GUI;
 import Persona.Personas;
 import Metodo.Metodos;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class UI extends javax.swing.JFrame {
     Personas persona = new Personas();
+    
+    DefaultTableModel model = new DefaultTableModel();
 
     /**
      * Creates new form UI
      */
     public UI() {
         initComponents();
+        
+        //Columnas
+        model.addColumn("Nombre");
+        model.addColumn("1er Apellido");
+        model.addColumn("2do Apellido");
+        model.addColumn("Pasaporte");
+        model.addColumn("Edad");
+        model.addColumn("Género");
+        model.addColumn("Destino");
+        model.addColumn("Asiento");
+        model.addColumn("Ciudadano Oro");
+        model.addColumn("Reg. Pensión");
+        this.tblContenido.setModel(model);
         
     }
 
@@ -121,6 +137,11 @@ public class UI extends javax.swing.JFrame {
         jLabel5.setText("Edad:");
 
         spnEdad.setModel(new javax.swing.SpinnerNumberModel(1, 1, 115, 1));
+        spnEdad.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                spnEdadStateChanged(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel6.setText("Género:");
@@ -257,7 +278,7 @@ public class UI extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -275,7 +296,13 @@ public class UI extends javax.swing.JFrame {
     
     private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
         establecerValores();
+        agregarDatosTabla();
+        restablecerValores();
     }//GEN-LAST:event_btnRegistrarMouseClicked
+
+    private void spnEdadStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnEdadStateChanged
+        ciudadanoOro();
+    }//GEN-LAST:event_spnEdadStateChanged
 
     /**
      * @param args the command line arguments
@@ -322,10 +349,66 @@ public class UI extends javax.swing.JFrame {
         persona.setGenero((String) cmbGenero.getSelectedItem());
         persona.setDestino((String) cmbDestino.getSelectedItem());
         persona.setnAsiento((String) cmbAsiento.getSelectedItem());
-        
-       
-        JOptionPane.showMessageDialog(rootPane, persona.getGenero());
+
     }
+    
+    public void restablecerValores()
+    {
+        //Variables
+        persona.setNombre("");
+        persona.setApellido1("");
+        persona.setApellido2("");
+        persona.setnPasaporte("");
+        persona.setEdad(1);      
+        persona.setGenero("");
+        persona.setDestino("");
+        persona.setnAsiento("");
+        
+        //GUI
+        txtNombre.setText("");
+        txtApellido1.setText("");
+        txtApellido2.setText("");
+        txtPasaporte.setText("");
+        spnEdad.getValue();
+        cmbGenero.setSelectedIndex(0);
+        cmbDestino.setSelectedIndex(0);
+        cmbAsiento.setSelectedIndex(0);
+        
+    }//Fin limpiarValores.
+    
+    public void ciudadanoOro() //Revisa la edad y habilita la opción de Reg. Pensión.
+    {
+        if(((int) spnEdad.getValue()) >= 65)
+        {
+            chkCiudadanoOro.setSelected(true);
+            cmbPension.setEnabled(true);
+            
+        }
+        else
+        {
+            chkCiudadanoOro.setSelected(false);
+            cmbPension.setEnabled(false);
+        }//Fin if.
+        
+    }//Fin ciudadanoOro.
+    
+    public void agregarDatosTabla()
+    {
+        String[] agregar = new String[10];
+        
+        agregar[0] = persona.getNombre();
+        agregar[1] = persona.getApellido1();
+        agregar[2] = persona.getApellido2();
+        agregar[3] = persona.getnPasaporte();
+        agregar[4] = String.valueOf(persona.getEdad());
+        agregar[5] = persona.getGenero();
+        agregar[6] = persona.getDestino();
+        agregar[7] = persona.getnAsiento();
+        agregar[8] = persona.getCiudadanoOro();
+        agregar[9] = (String) cmbPension.getSelectedItem();
+        
+        model.addRow(agregar);
+    }//Fin agregarDatostabla
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
