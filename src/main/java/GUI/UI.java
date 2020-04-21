@@ -131,6 +131,11 @@ public class UI extends javax.swing.JFrame {
                 "Nombre", "1er Apellido", "2do Apellido", "Pasaporte", "Edad", "Genero", "Asiento", "Ciudadano Oro", "Reg. Pensión"
             }
         ));
+        tblContenido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblContenidoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblContenido);
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -245,6 +250,11 @@ public class UI extends javax.swing.JFrame {
         });
 
         btnEditar.setText("Editar");
+        btnEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEditarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -303,6 +313,26 @@ public class UI extends javax.swing.JFrame {
     private void spnEdadStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnEdadStateChanged
         ciudadanoOro();
     }//GEN-LAST:event_spnEdadStateChanged
+
+    private void tblContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContenidoMouseClicked
+        int filaSeleccionada = tblContenido.getSelectedRow();
+        
+        txtNombre.setText(tblContenido.getValueAt(filaSeleccionada, 0).toString());
+        txtApellido1.setText(tblContenido.getValueAt(filaSeleccionada, 1).toString());
+        txtApellido2.setText(tblContenido.getValueAt(filaSeleccionada, 2).toString());
+        txtPasaporte.setText(tblContenido.getValueAt(filaSeleccionada, 3).toString());
+        spnEdad.setValue(tblContenido.getValueAt(filaSeleccionada, 4).toString());
+        cmbGenero.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 5));
+        cmbDestino.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 6));
+        cmbAsiento.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 7));
+        
+        fila = filaSeleccionada;
+        
+    }//GEN-LAST:event_tblContenidoMouseClicked
+
+    private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        modificarDatosTabla();
+    }//GEN-LAST:event_btnEditarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -408,7 +438,31 @@ public class UI extends javax.swing.JFrame {
         agregar[9] = (String) cmbPension.getSelectedItem();
         
         model.addRow(agregar);
-    }//Fin agregarDatostabla
+    }//Fin agregarDatostabla.
+    
+    int fila; //Guarda la fila.
+    
+    public void modificarDatosTabla()
+    {
+        String[] editar = new String[10];
+        
+        editar[0] = txtNombre.getText();
+        editar[1] = txtApellido1.getText();
+        editar[2] = txtApellido2.getText();
+        editar[3] = txtPasaporte.getText();
+        editar[4] = spnEdad.getValue().toString();
+        editar[5] = cmbGenero.getSelectedItem().toString();
+        editar[6] = cmbDestino.getSelectedItem().toString();
+        editar[7] = cmbAsiento.getSelectedItem().toString();
+        editar[8] = persona.getCiudadanoOro();
+        editar[9] = (String) cmbPension.getSelectedItem();
+        
+        for (int i = 0; i < tblContenido.getColumnCount(); i++) 
+        {
+            model.setValueAt(editar[i], fila, i);
+        }//Fin for.
+
+    }//Fin modificarDatosTabla.
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
