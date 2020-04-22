@@ -332,6 +332,7 @@ public class UI extends javax.swing.JFrame {
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         modificarDatosTabla();
+        restablecerValores();
     }//GEN-LAST:event_btnEditarMouseClicked
 
     /**
@@ -418,24 +419,25 @@ public class UI extends javax.swing.JFrame {
         {
             chkCiudadanoOro.setSelected(false);
             cmbPension.setEnabled(false);
+            cmbPension.setSelectedIndex(3);
         }//Fin if.
         
     }//Fin ciudadanoOro.
     
     public void agregarDatosTabla()
     {
-        String[] agregar = new String[10];
+        Object[] agregar = new Object[10];
         
         agregar[0] = persona.getNombre();
         agregar[1] = persona.getApellido1();
         agregar[2] = persona.getApellido2();
         agregar[3] = persona.getnPasaporte();
-        agregar[4] = String.valueOf(persona.getEdad());
+        agregar[4] = persona.getEdad();
         agregar[5] = persona.getGenero();
         agregar[6] = persona.getDestino();
         agregar[7] = persona.getnAsiento();
         agregar[8] = persona.getCiudadanoOro();
-        agregar[9] = (String) cmbPension.getSelectedItem();
+        agregar[9] = cmbPension.getSelectedItem();
         
         model.addRow(agregar);
     }//Fin agregarDatostabla.
@@ -444,18 +446,20 @@ public class UI extends javax.swing.JFrame {
     
     public void modificarDatosTabla()
     {
-        String[] editar = new String[10];
+        establecerValores();
+        
+        Object[] editar = new Object[10];
         
         editar[0] = txtNombre.getText();
         editar[1] = txtApellido1.getText();
         editar[2] = txtApellido2.getText();
         editar[3] = txtPasaporte.getText();
         editar[4] = spnEdad.getValue().toString();
-        editar[5] = cmbGenero.getSelectedItem().toString();
+        editar[5] = cmbGenero.getSelectedItem();
         editar[6] = cmbDestino.getSelectedItem().toString();
         editar[7] = cmbAsiento.getSelectedItem().toString();
         editar[8] = persona.getCiudadanoOro();
-        editar[9] = (String) cmbPension.getSelectedItem();
+        editar[9] = cmbPension.getSelectedItem();
         
         for (int i = 0; i < tblContenido.getColumnCount(); i++) 
         {
