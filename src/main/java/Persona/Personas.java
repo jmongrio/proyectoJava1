@@ -15,6 +15,7 @@ public class Personas
     private int nVuelo;
     private String ciudadanoOro;
     private String regPension;
+    private String autorizacion;
 
     public Personas() {
     }//Constructor vacio
@@ -72,6 +73,10 @@ public class Personas
     public String getRegPension() {
         return regPension;
     }
+
+    public String getAutorizacion() {
+        return autorizacion;
+    }
     
     //Setters
 
@@ -126,5 +131,10 @@ public class Personas
     public void setRegPension(String regPension) {
         this.regPension = regPension;
     }
+
+    public void setAutorizacion(String autorizacion) {
+        this.autorizacion = autorizacion;
+    }
+    
     
 }//Fin Persona

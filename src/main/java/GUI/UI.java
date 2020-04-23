@@ -38,6 +38,7 @@ public class UI extends javax.swing.JFrame {
         model.addColumn("Reg. Pensión");
         model.addColumn("Costo Boleto");
         model.addColumn("Tiquete");
+        model.addColumn("Autorización");
         this.tblContenido.setModel(model);
         
     }
@@ -73,6 +74,8 @@ public class UI extends javax.swing.JFrame {
         txtCostoBoleto = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtTiquete = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        cmbAutorizarMenor = new javax.swing.JComboBox<>();
         btnSalir = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
@@ -196,6 +199,10 @@ public class UI extends javax.swing.JFrame {
         txtTiquete.setEditable(false);
         txtTiquete.setEnabled(false);
 
+        jLabel14.setText("Autorización menor:");
+
+        cmbAutorizarMenor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No aplica", "Si", "No" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -236,6 +243,12 @@ public class UI extends javax.swing.JFrame {
                         .addComponent(txtCiudadanoOro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(cmbPension, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14)
+                .addGap(18, 18, 18)
+                .addComponent(cmbAutorizarMenor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +285,11 @@ public class UI extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
                             .addComponent(txtTiquete, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cmbAutorizarMenor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         btnSalir.setText("Salir");
@@ -364,7 +381,7 @@ public class UI extends javax.swing.JFrame {
                             .addComponent(cmbConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,6 +412,8 @@ public class UI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegistrarMouseClicked
 
     private void spnEdadStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spnEdadStateChanged
+        autorizarMenor();
+        
         persona.setDestino((String) cmbDestino.getSelectedItem());
         persona.setnAsiento(String.valueOf(cmbAsiento.getSelectedItem()));
 
@@ -421,6 +440,7 @@ public class UI extends javax.swing.JFrame {
         cmbPension.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 9));//Reg. Pension
         txtCostoBoleto.setText(tblContenido.getValueAt(filaSeleccionada, 10).toString());//Costo Boleto
         txtTiquete.setText(tblContenido.getValueAt(filaSeleccionada, 11).toString());//Tiquete
+        cmbAutorizarMenor.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 12));//Autorización menor
         
         fila = filaSeleccionada;
         
@@ -501,6 +521,7 @@ public class UI extends javax.swing.JFrame {
         persona.setRegPension((String) cmbPension.getSelectedItem());//Reg. Pension
         persona.setcDelBoleto(Double.valueOf(txtCostoBoleto.getText()));//Costo Boleto
         persona.setnTiquete(txtTiquete.getText());//Tiquete
+        persona.setAutorizacion((String) cmbAutorizarMenor.getSelectedItem());//Autorización menor
 
     }
     
@@ -519,6 +540,7 @@ public class UI extends javax.swing.JFrame {
         persona.setRegPension("");//Reg. Pension
         persona.setcDelBoleto(0);//Costo Boleto
         persona.setnTiquete("");//Tiquete
+        persona.setAutorizacion("");//Autorización menor
                 
         //GUI
         txtNombre.setText("");//Nombre
@@ -533,6 +555,7 @@ public class UI extends javax.swing.JFrame {
         cmbPension.setSelectedIndex(0);//Reg. Pension
         //Costo Boleto
         //Tiquete
+        cmbAutorizarMenor.setSelectedIndex(0);//Autorización menor
         
     }//Fin limpiarValores.
 
@@ -557,7 +580,7 @@ public class UI extends javax.swing.JFrame {
     
     public void agregarDatosTabla()
     {
-        Object[] agregar = new Object[12];
+        Object[] agregar = new Object[13];
         
         agregar[0] = persona.getNombre();//Nombre
         agregar[1] = persona.getApellido1();//Apellido1
@@ -571,6 +594,7 @@ public class UI extends javax.swing.JFrame {
         agregar[9] = persona.getRegPension();//Reg. Pension
         agregar[10] = persona.getcDelBoleto();//Costo Boleto
         agregar[11] = persona.getnTiquete();//Tiquete
+        agregar[12] = persona.getAutorizacion();
 
         model.addRow(agregar);
     }//Fin agregarDatostabla.
@@ -581,7 +605,7 @@ public class UI extends javax.swing.JFrame {
     {
         establecerValores();
         
-        Object[] editar = new Object[12];
+        Object[] editar = new Object[13];
         
         editar[0] = persona.getNombre();//Nombre
         editar[1] = persona.getApellido1();//Apellido1
@@ -595,6 +619,7 @@ public class UI extends javax.swing.JFrame {
         editar[9] = persona.getRegPension();//Reg. Pension
         editar[10] = persona.getcDelBoleto();//Costo Boleto
         editar[11] = persona.getnTiquete();//Tiquete
+        editar[12] = persona.getAutorizacion();//Autorización menor
         
         for (int i = 0; i < tblContenido.getColumnCount(); i++) 
         {
@@ -631,12 +656,26 @@ public class UI extends javax.swing.JFrame {
         }//Fin if.
  
     }//Fin consultaPasajero.
+    
+    public void autorizarMenor()
+    {
+        if((int) spnEdad.getValue() >= 14)
+        {
+            cmbAutorizarMenor.setEnabled(false);
+        }
+        else
+        {
+            cmbAutorizarMenor.setEnabled(true);
+        }//Fin if.
+        
+    }//Fin autorizarMenor.
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbAsiento;
+    private javax.swing.JComboBox<String> cmbAutorizarMenor;
     private javax.swing.JComboBox<String> cmbConsulta;
     private javax.swing.JComboBox<String> cmbDestino;
     private javax.swing.JComboBox<String> cmbGenero;
@@ -646,6 +685,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

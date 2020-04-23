@@ -15,7 +15,7 @@ public class Metodos
         }
         else
         {
-            if((genero == 0) || (destino == 0) )
+            if((genero == 0) || (destino == 0))
             {
                 JOptionPane.showMessageDialog(null, "Debe seleccionar todas las opciones.");
                 continuar = false;
