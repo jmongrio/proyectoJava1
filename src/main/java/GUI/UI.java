@@ -3,8 +3,12 @@ package GUI;
 import Persona.Personas;
 import Metodo.Metodos;
 import Metodo.Tiquete;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class UI extends javax.swing.JFrame {
     Personas persona = new Personas();
@@ -12,7 +16,9 @@ public class UI extends javax.swing.JFrame {
     Metodos metodo = new Metodos();
     
     DefaultTableModel model = new DefaultTableModel();
-
+    
+    private TableRowSorter consulta;
+    
     /**
      * Creates new form UI
      */
@@ -70,6 +76,10 @@ public class UI extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtConsultaPasajero = new javax.swing.JTextField();
+        cmbConsulta = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -167,7 +177,7 @@ public class UI extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel8.setText("Destino:");
 
-        cmbDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Panamá", "Nicaragua" }));
+        cmbDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "panamá", "nicaragua" }));
         cmbDestino.setToolTipText("PNA = 100 / NCA = 95\n");
 
         jLabel9.setText("Ciudadano Oro:");
@@ -286,6 +296,24 @@ public class UI extends javax.swing.JFrame {
             }
         });
 
+        jLabel12.setText("Tipo de consulta:");
+
+        jLabel13.setText("Busqueda:");
+
+        txtConsultaPasajero.setToolTipText("Ingrese el número de pasaporte");
+        txtConsultaPasajero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtConsultaPasajeroKeyTyped(evt);
+            }
+        });
+
+        cmbConsulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pasajero", "Vuelo" }));
+        cmbConsulta.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbConsultaItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -304,21 +332,39 @@ public class UI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 955, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 955, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel12)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(81, 81, 81)
+                                .addComponent(jLabel13)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtConsultaPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(txtConsultaPasajero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -385,6 +431,26 @@ public class UI extends javax.swing.JFrame {
         modificarDatosTabla();
         restablecerValores();
     }//GEN-LAST:event_btnEditarMouseClicked
+
+    private void txtConsultaPasajeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConsultaPasajeroKeyTyped
+        txtConsultaPasajero.addKeyListener(new KeyAdapter() {
+        
+            public void keyReleased(final KeyEvent e)
+            {
+                String cadena = (txtConsultaPasajero.getText());
+                txtConsultaPasajero.setText(cadena);
+                consultaPasajero();
+            }
+        });
+        
+        consulta = new TableRowSorter(tblContenido.getModel());
+        tblContenido.setRowSorter(consulta);
+     
+    }//GEN-LAST:event_txtConsultaPasajeroKeyTyped
+
+    private void cmbConsultaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbConsultaItemStateChanged
+        consultaPasajero();
+    }//GEN-LAST:event_cmbConsultaItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -542,18 +608,44 @@ public class UI extends javax.swing.JFrame {
         txtTiquete.setText(persona.getnTiquete());
         txtCostoBoleto.setText(String.valueOf(persona.getcDelBoleto()));
     }//Fin datosTiquete.
+    
+    public void consultaPasajero()
+    {
+        int columnaTabla;
+        
+        if(cmbConsulta.getSelectedIndex() == 0)
+        {
+            columnaTabla = 3;//Columna de pasaporte.
+            consulta.setRowFilter(RowFilter.regexFilter(txtConsultaPasajero.getText(), columnaTabla));
+            
+        }
+        else
+        {
+            if(cmbConsulta.getSelectedIndex() == 1)
+            {
+                columnaTabla = 4;//Columna de destino.
+                consulta.setRowFilter(RowFilter.regexFilter(txtConsultaPasajero.getText(), columnaTabla));
+                
+            }//Fin if.
+            
+        }//Fin if.
+ 
+    }//Fin consultaPasajero.
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cmbAsiento;
+    private javax.swing.JComboBox<String> cmbConsulta;
     private javax.swing.JComboBox<String> cmbDestino;
     private javax.swing.JComboBox<String> cmbGenero;
     private javax.swing.JComboBox<String> cmbPension;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -570,6 +662,7 @@ public class UI extends javax.swing.JFrame {
     private javax.swing.JTextField txtApellido1;
     private javax.swing.JTextField txtApellido2;
     private javax.swing.JTextField txtCiudadanoOro;
+    private javax.swing.JTextField txtConsultaPasajero;
     private javax.swing.JTextField txtCostoBoleto;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPasaporte;

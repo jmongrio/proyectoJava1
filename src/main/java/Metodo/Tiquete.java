@@ -48,7 +48,7 @@ public class Tiquete
         String Destino;
         String Tiquete = "";
         
-        if(destino == "Nicaragua")
+        if(destino == "nicaragua")
         {
             Destino = "NCA";
             Tiquete = (Destino + asiento);
@@ -56,7 +56,7 @@ public class Tiquete
         }
         else
         {
-            if(destino == "Panamá")
+            if(destino == "panamá")
             {
                 Destino = "PNA";
                 Tiquete = (Destino + (String.valueOf(asiento)));
