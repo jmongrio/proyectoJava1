@@ -24,12 +24,14 @@ public class UI extends javax.swing.JFrame {
         model.addColumn("1er Apellido");
         model.addColumn("2do Apellido");
         model.addColumn("Pasaporte");
-        model.addColumn("Edad");
-        model.addColumn("Género");
         model.addColumn("Destino");
+        model.addColumn("Género");        
         model.addColumn("Asiento");
+        model.addColumn("Edad");
         model.addColumn("Ciudadano Oro");
         model.addColumn("Reg. Pensión");
+        model.addColumn("Costo Boleto");
+        model.addColumn("Tiquete");
         this.tblContenido.setModel(model);
         
     }
@@ -100,7 +102,7 @@ public class UI extends javax.swing.JFrame {
                     .addComponent(txtApellido1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtApellido2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPasaporte, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +131,7 @@ public class UI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre", "1er Apellido", "2do Apellido", "Pasaporte", "Edad", "Genero", "Asiento", "Ciudadano Oro", "Reg. Pensión"
+                "Nombre", "1er Apellido", "2do Apellido", "Pasaporte", "Destino", "Genero", "Asiento", "Edad", "Ciudadano Oro", "Reg. Pensión", "Costo Boleto", "Tiquete"
             }
         ));
         tblContenido.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -301,9 +303,9 @@ public class UI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 955, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -361,20 +363,25 @@ public class UI extends javax.swing.JFrame {
     private void tblContenidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContenidoMouseClicked
         int filaSeleccionada = tblContenido.getSelectedRow();
         
-        txtNombre.setText(tblContenido.getValueAt(filaSeleccionada, 0).toString());
-        txtApellido1.setText(tblContenido.getValueAt(filaSeleccionada, 1).toString());
-        txtApellido2.setText(tblContenido.getValueAt(filaSeleccionada, 2).toString());
-        txtPasaporte.setText(tblContenido.getValueAt(filaSeleccionada, 3).toString());
-        spnEdad.setValue(tblContenido.getValueAt(filaSeleccionada, 4).toString());
-        cmbGenero.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 5));
-        cmbDestino.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 6));
-        cmbAsiento.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 7));
+        txtNombre.setText(tblContenido.getValueAt(filaSeleccionada, 0).toString());//Nombre
+        txtApellido1.setText(tblContenido.getValueAt(filaSeleccionada, 1).toString());//Apellido1
+        txtApellido2.setText(tblContenido.getValueAt(filaSeleccionada, 2).toString());//Apellido2
+        txtPasaporte.setText(tblContenido.getValueAt(filaSeleccionada, 3).toString());//Pasaporte
+        cmbDestino.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 4));//Destino
+        cmbGenero.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 5));//Genero
+        cmbAsiento.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 6));//Asiento
+        spnEdad.setValue(tblContenido.getValueAt(filaSeleccionada, 7));//Edad
+        txtCiudadanoOro.setText(tblContenido.getValueAt(filaSeleccionada, 8).toString());//CiudadanoOro
+        cmbPension.setSelectedItem(tblContenido.getValueAt(filaSeleccionada, 9));//Reg. Pension
+        txtCostoBoleto.setText(tblContenido.getValueAt(filaSeleccionada, 10).toString());//Costo Boleto
+        txtTiquete.setText(tblContenido.getValueAt(filaSeleccionada, 11).toString());//Tiquete
         
         fila = filaSeleccionada;
         
     }//GEN-LAST:event_tblContenidoMouseClicked
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
+        establecerValores();
         modificarDatosTabla();
         restablecerValores();
     }//GEN-LAST:event_btnEditarMouseClicked
@@ -416,38 +423,50 @@ public class UI extends javax.swing.JFrame {
     
     public void establecerValores()
     {
-        persona.setNombre(txtNombre.getText());
-        persona.setApellido1(txtApellido1.getText());
-        persona.setApellido2(txtApellido2.getText());
-        persona.setnPasaporte(txtPasaporte.getText());
-        persona.setEdad((int) spnEdad.getValue());      
-        persona.setGenero((String) cmbGenero.getSelectedItem());
-//        persona.setDestino((String) cmbDestino.getSelectedItem());
-//        persona.setnAsiento((String) cmbAsiento.getSelectedItem());
+        persona.setNombre(txtNombre.getText());//Nombre
+        persona.setApellido1(txtApellido1.getText());//Apellido1
+        persona.setApellido2(txtApellido2.getText());//Apellido2
+        persona.setnPasaporte(txtPasaporte.getText());//Pasaporte
+        persona.setEdad((int) spnEdad.getValue());//Destino
+        persona.setGenero((String) cmbGenero.getSelectedItem());//Genero
+        persona.setnAsiento((String) cmbAsiento.getSelectedItem());//Asiento
+        persona.setEdad((int) spnEdad.getValue());//Edad
+        persona.setCiudadanoOro(txtCiudadanoOro.getText());//CiudadanoOro
+        persona.setRegPension((String) cmbPension.getSelectedItem());//Reg. Pension
+        persona.setcDelBoleto(Double.valueOf(txtCostoBoleto.getText()));//Costo Boleto
+        persona.setnTiquete(txtTiquete.getText());//Tiquete
 
     }
     
     public void restablecerValores()
     {
         //Variables
-        persona.setNombre("");
-        persona.setApellido1("");
-        persona.setApellido2("");
-        persona.setnPasaporte("");
-        persona.setEdad(1);      
-        persona.setGenero("");
-        persona.setDestino("");
-        persona.setnAsiento("");
-        
+        persona.setNombre("");//Nombre
+        persona.setApellido1("");//Apellido1
+        persona.setApellido2("");//Apellido2
+        persona.setnPasaporte("");//Pasaporte
+        persona.setDestino("");//Destino
+        persona.setGenero("");//Genero
+        persona.setnAsiento("");//Asiento
+        persona.setEdad(0);//Edad
+        persona.setCiudadanoOro("");//CiudadanoOro
+        persona.setRegPension("");//Reg. Pension
+        persona.setcDelBoleto(0);//Costo Boleto
+        persona.setnTiquete("");//Tiquete
+                
         //GUI
-        txtNombre.setText("");
-        txtApellido1.setText("");
-        txtApellido2.setText("");
-        txtPasaporte.setText("");
-        spnEdad.getValue();
-        cmbGenero.setSelectedIndex(0);
-        cmbDestino.setSelectedIndex(0);
-        cmbAsiento.setSelectedIndex(0);
+        txtNombre.setText("");//Nombre
+        txtApellido1.setText("");//Apellido1
+        txtApellido2.setText("");//Apellido2
+        txtPasaporte.setText("");//Pasaporte
+        cmbDestino.setSelectedIndex(0);//Destino
+        cmbGenero.setSelectedIndex(0);//Genero
+        cmbAsiento.setSelectedIndex(0);//Asiento
+        spnEdad.setValue(1);//Edad
+        //CiudadanoOro
+        cmbPension.setSelectedIndex(0);//Reg. Pension
+        //Costo Boleto
+        //Tiquete
         
     }//Fin limpiarValores.
 
@@ -455,11 +474,13 @@ public class UI extends javax.swing.JFrame {
     {
         if(((int)spnEdad.getValue()) >= 65)
         {
+            persona.setCiudadanoOro("Si");
             txtCiudadanoOro.setText("Si");
             cmbPension.setEnabled(true);
         }
         else
         {
+            persona.setCiudadanoOro("No");
             txtCiudadanoOro.setText("No");
             cmbPension.setSelectedItem("No Aplica");
             cmbPension.setEnabled(false);
@@ -470,19 +491,21 @@ public class UI extends javax.swing.JFrame {
     
     public void agregarDatosTabla()
     {
-        Object[] agregar = new Object[10];
+        Object[] agregar = new Object[12];
         
-        agregar[0] = persona.getNombre();
-        agregar[1] = persona.getApellido1();
-        agregar[2] = persona.getApellido2();
-        agregar[3] = persona.getnPasaporte();
-        agregar[4] = persona.getEdad();
-        agregar[5] = persona.getGenero();
-        agregar[6] = persona.getDestino();
-        agregar[7] = persona.getnAsiento();
-        agregar[8] = persona.getCiudadanoOro();
-        agregar[9] = cmbPension.getSelectedItem();
-        
+        agregar[0] = persona.getNombre();//Nombre
+        agregar[1] = persona.getApellido1();//Apellido1
+        agregar[2] = persona.getApellido2();//Apellido2
+        agregar[3] = persona.getnPasaporte();//Pasaporte
+        agregar[4] = persona.getDestino();//Destino
+        agregar[5] = persona.getGenero();//Genero
+        agregar[6] = persona.getnAsiento();//Asiento
+        agregar[7] = persona.getEdad();//Edad
+        agregar[8] = persona.getCiudadanoOro();//CiudadanoOro
+        agregar[9] = persona.getRegPension();//Reg. Pension
+        agregar[10] = persona.getcDelBoleto();//Costo Boleto
+        agregar[11] = persona.getnTiquete();//Tiquete
+
         model.addRow(agregar);
     }//Fin agregarDatostabla.
     
@@ -492,18 +515,20 @@ public class UI extends javax.swing.JFrame {
     {
         establecerValores();
         
-        Object[] editar = new Object[10];
+        Object[] editar = new Object[12];
         
-        editar[0] = txtNombre.getText();
-        editar[1] = txtApellido1.getText();
-        editar[2] = txtApellido2.getText();
-        editar[3] = txtPasaporte.getText();
-        editar[4] = spnEdad.getValue().toString();
-        editar[5] = cmbGenero.getSelectedItem();
-        editar[6] = cmbDestino.getSelectedItem().toString();
-        editar[7] = cmbAsiento.getSelectedItem().toString();
-        editar[8] = persona.getCiudadanoOro();
-        editar[9] = cmbPension.getSelectedItem();
+        editar[0] = persona.getNombre();//Nombre
+        editar[1] = persona.getApellido1();//Apellido1
+        editar[2] = persona.getApellido2();//Apellido2
+        editar[3] = persona.getnPasaporte();//Pasaporte
+        editar[4] = persona.getDestino();//Destino
+        editar[5] = persona.getGenero();//Genero
+        editar[6] = persona.getnAsiento();//Asiento
+        editar[7] = persona.getEdad();//Edad
+        editar[8] = persona.getCiudadanoOro();//CiudadanoOro
+        editar[9] = persona.getRegPension();//Reg. Pension
+        editar[10] = persona.getcDelBoleto();//Costo Boleto
+        editar[11] = persona.getnTiquete();//Tiquete
         
         for (int i = 0; i < tblContenido.getColumnCount(); i++) 
         {
